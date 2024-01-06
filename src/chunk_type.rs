@@ -40,7 +40,7 @@ impl TryFrom<[u8; 4]> for ChunkType {
             let byte = raw_chunk_type[index];
              
             if !byte.is_ascii() || !byte.is_ascii_alphabetic() {
-                return Err(format!("Invalid byte {} at position {index}", byte));
+                return Err(format!("Invalid byte {byte} at position {index}"));
             }
         }
         Ok(Self { raw: raw_chunk_type })
@@ -54,7 +54,7 @@ impl FromStr for ChunkType {
         let str_chunk_bytes = str_chunk.as_bytes();
         let chunk_size = str_chunk_bytes.len();
         if str_chunk_bytes.len() != 4 {
-            return Err(format!("Invalid chunk of size {}", chunk_size));
+            return Err(format!("Invalid chunk of size {chunk_size}"));
         }
         let raw_chunk: [u8; 4] = str_chunk_bytes[0..4].try_into().unwrap();
         Self::try_from(raw_chunk)
